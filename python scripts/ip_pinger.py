@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import subprocess
 import pandas as pd
 from datetime import datetime
@@ -27,7 +29,7 @@ for value in devices.values():
         results.append("offline")
 
 # Create a data frame from the results, datetimes, and devices dictionary
-df = pd.DataFrame({"device": list(devices.keys()), "ip_address": list(devices.values()), "status": results, "datetime": date})
+df = pd.DataFrame({"device": list(devices.keys()), "ip_address": list(devices.values()), "status": results, "datetime": timestamp})
 
 # Define a function to save the data frame to a PostgreSQL database
 def save_to_postgres(df, table_name, dbname, host, port, user, password):
