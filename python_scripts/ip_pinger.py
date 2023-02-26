@@ -4,12 +4,15 @@ import subprocess
 import pandas as pd
 from datetime import datetime
 import psycopg2
+import os
 
 # replace with the IP address you want to ping
 devices = {
     "alex_xiaomi": "192.168.0.2",
     "alex_samsung": "192.168.0.25",
-    "alex_work_laptop": "192.168.0.26"
+    "alex_work_laptop": "192.168.0.26",
+    "georgina_iphone": "192.168.0.5",
+    "georgina_mac:": "192.168.0.8"
 }
 
 timestamp = datetime.now()
@@ -31,15 +34,17 @@ for value in devices.values():
 # Create a data frame from the results, datetimes, and devices dictionary
 df = pd.DataFrame({"device": list(devices.keys()), "ip_address": list(devices.values()), "status": results, "datetime": timestamp})
 
+import credentials
+
 # Define a function to save the data frame to a PostgreSQL database
 def save_to_postgres(df, table_name, dbname, host, port, user, password):
     # Create a connection to the database
     conn = psycopg2.connect(
-        dbname=dbname,
-        host=host,
-        port=port,
-        user=user,
-        password=password
+        dbname=os.environ['dbname'],
+        host=os.environ['host'],
+        port=os.environ['port'],
+        user=os.environ['user'],
+        password=os.environ['password']
     )
     
     # Create a cursor to execute SQL commands
@@ -60,3 +65,4 @@ def save_to_postgres(df, table_name, dbname, host, port, user, password):
 
 # Call the function to save the data frame to the PostgreSQL database
 save_to_postgres(df, "ping_results", "my_db", "localhost", 5432, "my_user", "my_password")
+print(df)
