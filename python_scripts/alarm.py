@@ -1,6 +1,10 @@
+#!/usr/bin/env python3
+
 import os
 import random
 from playsound import playsound  # requires 'playsound' package
+
+directory = 'mp3_files'
 
 def play_random_mp3(directory):
     # Get a list of all the MP3 files in the directory
