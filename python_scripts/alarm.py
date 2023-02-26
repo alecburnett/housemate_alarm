@@ -6,7 +6,7 @@ from pydub import AudioSegment
 from pydub.playback import play
 
 
-directory = '/home/alexanderjmburnett1991/git/housemate_alarm/mp3_files'
+directory = 'mp3_files'
 
 def play_random_mp3(directory):
     # Get a list of all the MP3 files in the directory
